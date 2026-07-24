@@ -1,13 +1,10 @@
-const mongoose = require('mongoose');
+﻿const mongoose = require('mongoose');
 
 const activitySchema = new mongoose.Schema({
   time: String,
-  activity: String,
+  activity: { type: String, required: true },
   location: String,
-  cost: {
-    type: Number,
-    default: 0
-  }
+  cost: { type: Number, default: 0 }
 });
 
 const daySchema = new mongoose.Schema({
@@ -42,6 +39,15 @@ const tripSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  origin: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  homeCurrency: {
+    type: String,
+    default: 'USD'
+  },
   days: {
     type: Number,
     required: true,
@@ -55,7 +61,7 @@ const tripSchema = new mongoose.Schema({
   },
   interests: [{
     type: String,
-    enum: ['Food', 'Culture', 'Adventure', 'Shopping', 'Nature', 'Relaxation']
+    enum: ['Food', 'Culture', 'Adventure', 'Shopping', 'Nature', 'Relaxation', 'Nightlife', 'History']
   }],
   itinerary: [daySchema],
   budgetEstimation: budgetSchema,
